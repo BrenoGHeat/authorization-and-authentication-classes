@@ -2,12 +2,20 @@ import { Request, Response } from "express";
 import { UserServices } from "../services/user.services";
 
 export class UserControllers {
-   login(req: Request, res: Response): Response {
+   async login(req: Request, res: Response): Promise<Response> {
       const userServices = new UserServices();
 
-      const response = userServices.login();
+      const response = await userServices.login(req.body);
 
       return res.status(200).json(response);
+   }
+   
+   async register(req: Request, res: Response): Promise<Response>{
+      const userServices = new UserServices();
+
+      const response = await userServices.register(req.body);
+
+      return res.status(201).json(response);
    }
 
    getUser(req: Request, res: Response) {
