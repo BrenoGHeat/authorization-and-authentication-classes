@@ -1,7 +1,9 @@
 import "dotenv/config";
+import "express-async-errors";
 import express, { json } from "express";
 import helmet from "helmet";
 import jwt from "jsonwebtoken";
+import { handleErrors } from "./middleware/handleError.middlewares";
 
 export const app = express();
 
@@ -35,3 +37,5 @@ app.post("/login", (req, res) => {
       return res.status(200).json({ accessToken: token });
    }
 });
+
+app.use(handleErrors.execute);
